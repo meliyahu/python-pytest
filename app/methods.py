@@ -1,7 +1,7 @@
-def add(a, b):
+def add(a, b=2):
     return a + b
 
-def multiply(a, b):
+def multiply(a, b=2):
     return a * b
 
 def divide(a, with_b):
