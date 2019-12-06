@@ -1,10 +1,13 @@
-from app import cli
+from app import cli, do_something
 import pytest
+# from pytest_mock import mocker
 
 # From https://realpython.com/python-cli-testing/#mocks
 
 @pytest.fixture(params=['ndict', 'dict'])
-def generate_initial_transform_parameters(request):
+def generate_initial_transform_parameters(request, mocker):
+    mocker.patch.object(do_something, 'is_good_is_nice', return_value='nice')
+
     test_input = {
         'name': 'John Q. Public',
         'street': '123 Main St.',

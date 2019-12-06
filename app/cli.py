@@ -1,4 +1,5 @@
 from pprint import pprint
+from app import do_something
 
 # From: https://realpython.com/python-cli-testing/#mocks
 
@@ -10,7 +11,10 @@ def initial_transform(data):
         if type(data[item]) is dict:
             for key in data[item]:
                 data[key] = data[item][key]            
-    data.pop('relationships', None)
+            data.pop(item, None)
+
+    result = do_something.is_good_is_nice()
+    print(result)
     return data
 
 
