@@ -7,7 +7,7 @@ import pytest
 CONTENT = "content"
 
 
-@pytest.fixture()
+@pytest.fixture(name="audio_files_fixture")
 def create_audio_files(tmp_path):
     """create list of files"""
     d_dir = tmp_path / "sub"
@@ -25,7 +25,7 @@ def create_audio_files(tmp_path):
 
 class TestTempPath:
     """Test class"""
-    def test_create_file(self, tmp_path, create_audio_files):
+    def test_create_file(self, audio_files_fixture):
         """Create a file"""
 
         # d_dir = tmp_path / "sub"
@@ -37,6 +37,6 @@ class TestTempPath:
         # assert p_file.read_text() == CONTENT
         # assert len(list(tmp_path.iterdir())) == 1
         # assert 0
-        for file in create_audio_files:
+        for file in audio_files_fixture:
             assert Path(file).is_file()
         # print (create_audio_files)

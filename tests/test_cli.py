@@ -8,7 +8,7 @@ from app import cli, do_something
 
 # From https://realpython.com/python-cli-testing/#mocks
 
-@pytest.fixture(params=['ndict', 'dict'])
+@pytest.fixture(params=['ndict', 'dict'], name='init_transform_fixture')
 def generate_initial_transform_parameters(request, mocker):
     """fixture"""
     mocker.patch.object(do_something, 'is_good_is_nice', return_value='nice')
@@ -37,8 +37,8 @@ def generate_initial_transform_parameters(request, mocker):
 
     return test_input, expected_output
 
-def test_initial_transform(generate_initial_transform_parameters):
+def test_initial_transform(init_transform_fixture):
     """Test"""
-    test_input = generate_initial_transform_parameters[0]
-    expected_output = generate_initial_transform_parameters[1]
+    test_input = init_transform_fixture[0]
+    expected_output = init_transform_fixture[1]
     assert cli.initial_transform(test_input) == expected_output
