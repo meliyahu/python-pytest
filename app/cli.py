@@ -1,4 +1,6 @@
-from pprint import pprint
+"""cli module"""
+
+# from pprint import pprint
 from app import do_something
 
 # From: https://realpython.com/python-cli-testing/#mocks
@@ -8,9 +10,9 @@ def initial_transform(data):
     Flatten nested dicts
     """
     for item in list(data):
-        if type(data[item]) is dict:
+        if isinstance(data[item], dict):
             for key in data[item]:
-                data[key] = data[item][key]            
+                data[key] = data[item][key]
             data.pop(item, None)
 
     result = do_something.is_good_is_nice()
@@ -23,19 +25,20 @@ def final_transform(transformed_data):
     Transform address structures into a single structure
     """
     transformed_data['address'] = str.format(
-        "{0}\n{1}, {2} {3}", transformed_data['street'], 
-        transformed_data['state'], transformed_data['city'], 
+        "{0}\n{1}, {2} {3}", transformed_data['street'],
+        transformed_data['state'], transformed_data['city'],
         transformed_data['zip'])
     return transformed_data
 
 
 def print_person(person_data):
+    """print person"""
     parents = "and".join(person_data['parents'])
     siblings = "and".join(person_data['siblings'])
     person_string = str.format(
         "Hello, my name is {0}, my siblings are {1}, "
         "my parents are {2}, and my mailing"
-        "address is: \n{3}", person_data['name'], 
+        "address is: \n{3}", person_data['name'],
         parents, siblings, person_data['address'])
     print(person_string)
 
@@ -60,7 +63,7 @@ suzy_data = {
     'state': 'FL',
     'zip': 33333,
     'relationships': {
-        'siblings': ['John Q. Public', 'Michael R. Public', 
+        'siblings': ['John Q. Public', 'Michael R. Public',
                     'Thomas Z. Public'],
         'parents': ['John Q. Public Sr.', 'Mary S. Public'],
     }
