@@ -1,11 +1,16 @@
-from app import cli, do_something
+"""
+tests
+"""
 import pytest
+from app import cli, do_something
+
 # from pytest_mock import mocker
 
 # From https://realpython.com/python-cli-testing/#mocks
 
 @pytest.fixture(params=['ndict', 'dict'])
 def generate_initial_transform_parameters(request, mocker):
+    """fixture"""
     mocker.patch.object(do_something, 'is_good_is_nice', return_value='nice')
 
     test_input = {
@@ -33,6 +38,7 @@ def generate_initial_transform_parameters(request, mocker):
     return test_input, expected_output
 
 def test_initial_transform(generate_initial_transform_parameters):
+    """Test"""
     test_input = generate_initial_transform_parameters[0]
     expected_output = generate_initial_transform_parameters[1]
     assert cli.initial_transform(test_input) == expected_output
