@@ -22,10 +22,12 @@ def create_audio_files(tmp_path):
     return audio_file_list
 
 
-@pytest.fixture(name="audio_config_fixture")
-def gen_audio_config(tmp_path):
+@pytest.fixture(name="site_config_fixture")
+def generate_site_config(tmp_path):
     """Generate audio config fixture"""
-    config = {
+    config = {}
+    config["audio_file_types"] = [".wac", ".wav", ".flac"]
+    config['site'] = {
         "base_source": tmp_path / "data/users",
         "base_target": tmp_path / "data/audio",
         "base_spectogram": tmp_path / "data/vis",
@@ -46,7 +48,7 @@ def gen_audio_config(tmp_path):
 class TestTempPath:
     """Test class"""
 
-    def test_create_file(self, audio_files_fixture, audio_config_fixture):
+    def test_create_file(self, audio_files_fixture, site_config_fixture):
         """Create a file"""
 
         # d_dir = tmp_path / "sub"
@@ -61,4 +63,4 @@ class TestTempPath:
         for file in audio_files_fixture:
             assert Path(file).is_file()
 
-        print(audio_config_fixture)
+        print(site_config_fixture)
